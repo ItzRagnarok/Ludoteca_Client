@@ -36,6 +36,7 @@
             <input matInput [matDatepicker]="pickerStart" [(ngModel)]="loan.loanDate" name="loanDate" required>
             <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
             <mat-datepicker #pickerStart></mat-datepicker>
+            <mat-error>La fecha de inicio no puede estar vacía</mat-error>
         </mat-form-field>
 
         <mat-form-field>
@@ -43,6 +44,7 @@
             <input matInput [matDatepicker]="pickerEnd" [(ngModel)]="loan.returnDate" name="returnDate" required>
             <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerEnd></mat-datepicker>
+            <mat-error>La fecha de fin no puede estar vacía</mat-error>
         </mat-form-field>
     </form>
 

@@ -6,7 +6,7 @@ export class Loan {
     game: Game;
     client: Client;
     
-    loanDate: string | Date;      // fecha de inicio
-    returnDate?: string | Date;   // fecha de fin (opcional si aún no devolvió)
+    loanDate: string | Date; 
+    returnDate?: string | Date; 
 
 }

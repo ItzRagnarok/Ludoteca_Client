@@ -9,7 +9,7 @@ export const LOANS_DATA: LoanPage = {
         id: 1,
         game: { id: 10, title: 'Catan' } as Game,
         client: { id: 100, name: 'Ana Pérez' } as Client,
-        loanDate: '2026-03-01T10:00:00Z',    // ISO string
+        loanDate: '2026-03-01T10:00:00Z', 
         returnDate: '2026-03-10T12:30:00Z',
     },
     {

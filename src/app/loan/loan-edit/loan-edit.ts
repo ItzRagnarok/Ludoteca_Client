@@ -89,8 +89,8 @@ export class LoanEdit implements OnInit {
         this.dialogRef.close();
       },
       error: (err) => {
-        // Cuando conectes Spring Boot, si el backend devuelve un bad request (400) 
-        // o conflicto (409), pintaremos el mensaje de error aquí.
+        // Si el backend devuelve un bad request (400) 
+        // o conflicto (409), pinto el mensaje de error aquí.
         this.errorMessage = "Error al guardar: " + (err.error?.message || "Comprueba la disponibilidad del juego y del cliente.");
       }
     });

@@ -21,6 +21,7 @@ import { GameService } from '../../game/game.service';
 import { ClientService } from '../../client/client.service';
 import { Client } from '../../client/model/Client';
 import { LoanFilters } from '../model/LoanFilters';
+import { DialogConfirmation } from '../../core/dialog-confirmation/dialog-confirmation';
 
 @Component({
   selector: 'app-loan-list',
@@ -75,8 +76,8 @@ export class LoanList implements OnInit {
     this.loadPage();
   }
 
-  
- /** Convierte Date a 'YYYY-MM-DD' (sin zona horaria) */
+
+  /** Convierte Date a 'YYYY-MM-DD' (sin zona horaria) */
   private toISODateOnly(d: Date): string {
     const y = d.getFullYear();
     const m = String(d.getMonth() + 1).padStart(2, '0');
@@ -109,8 +110,8 @@ export class LoanList implements OnInit {
     });
   }
 
-  
-/** Botón Filtrar */
+
+  /** Botón Filtrar */
   onSearch(): void {
     this.pageNumber = 0; // resetea a primera página
     this.lastFilters = {
@@ -120,8 +121,8 @@ export class LoanList implements OnInit {
     };
     this.loadPage();
   }
-  
-/** Botón Limpiar */
+
+  /** Botón Limpiar */
   onCleanFilter(): void {
     this.filterGame = null;
     this.filterClient = null;
@@ -137,6 +138,30 @@ export class LoanList implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       this.ngOnInit();
+    });
+  }
+
+  editLoan(loan: Loan) {
+    const dialogRef = this.dialog.open(LoanEdit, {
+      data: { loan }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
+    });
+  }
+
+  deleteLoan(loan: Loan) {
+    const dialogRef = this.dialog.open(DialogConfirmation, {
+      data: { title: "Eliminar préstamo", description: "Atención si borra el préstamo se perderán sus datos.<br> ¿Desea eliminar el préstamo?" }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loanService.deleteLoan(loan.id).subscribe(result => {
+          this.ngOnInit();
+        }); 
+      }
     });
   }
 }
