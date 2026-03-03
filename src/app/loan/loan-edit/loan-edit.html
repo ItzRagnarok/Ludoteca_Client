@@ -31,20 +31,30 @@
             <mat-error>El juego no puede estar vacío</mat-error>
         </mat-form-field>
 
-        <!-- <mat-form-field>
-            <mat-label>Fecha de Inicio</mat-label>
-            <mat-select disableRipple [(ngModel)]="game.title" name="title" required>
-                @for (game of games; track game.id) {
-                    <mat-option [value]="game">{{game.title}}</mat-option>
-                }
-            </mat-select>
-            <mat-error>El juego no puede estar vacío</mat-error>
-        </mat-form-field> -->
+        <mat-form-field>
+            <mat-label>Fecha de inicio</mat-label>
+            <input matInput [matDatepicker]="pickerStart" [(ngModel)]="loan.loanDate" name="loanDate" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha de fin</mat-label>
+            <input matInput [matDatepicker]="pickerEnd" [(ngModel)]="loan.returnDate" name="returnDate" required>
+            <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
     </form>
 
+    @if (errorMessage) {
+        <div class="error-alert">
+            {{ errorMessage }}
+        </div>
+    }
+
     <div class="buttons">
-        <button mat-stroked-button >Cerrar</button>
-        <button mat-flat-button color="primary" >Guardar</button>
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
     </div>
 </div>
 
