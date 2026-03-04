@@ -13,7 +13,7 @@ import { GameService } from '../../game/game.service';
 import { LoanService } from '../loan.service';
 import { Loan } from '../model/Loan';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-loan-edit',
@@ -26,6 +26,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule
+  ],
+  providers: [
+    provideNativeDateAdapter() 
   ],
   templateUrl: './loan-edit.html',
   styleUrl: './loan-edit.scss',
