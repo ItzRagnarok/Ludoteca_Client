@@ -49,18 +49,15 @@ export class LoanEdit implements OnInit {
 
   ngOnInit(): void {
     // this.loan = this.data.loan ? Object.assign({}, this.data.loan) : new Loan();
-    // Si pasamos un loan desde la tabla (para editar), lo clonamos. Si no, creamos uno nuevo vacío.
     this.loan = this.data.loan ? Object.assign({}, this.data.loan) : new Loan();
 
-    // Cargamos los datos para llenar los <mat-select>
     this.clientService.getClients().subscribe(clients => this.clients = clients);
     this.gameService.getGames().subscribe(games => this.games = games);
   }
 
   onSave() {
-    this.errorMessage = null; // Reseteamos el error
+    this.errorMessage = null; 
 
-    // Validamos que todos los campos estén llenos
     if (!this.loan.client || !this.loan.game || !this.loan.loanDate || !this.loan.returnDate) {
       this.errorMessage = "Todos los campos son obligatorios.";
       return;
@@ -69,14 +66,11 @@ export class LoanEdit implements OnInit {
     const start = new Date(this.loan.loanDate);
     const end = new Date(this.loan.returnDate);
 
-    // Validación 1: Fecha fin no puede ser anterior a fecha inicio
     if (end < start) {
       this.errorMessage = "La fecha de fin no puede ser anterior a la fecha de inicio.";
       return;
     }
 
-    // Validación 2: Máximo 14 días
-    // Calculamos la diferencia en milisegundos y la pasamos a días
     const diffTime = Math.abs(end.getTime() - start.getTime());
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
@@ -85,15 +79,16 @@ export class LoanEdit implements OnInit {
       return;
     }
 
-    // Si pasa las validaciones del front, guardamos.
-    // Aquí preparamos la captura de errores del BACKEND (Validaciones 3 y 4)
+    // if () {
+    //   this.errorMessage = "El juego ya esta reservado en esas fechas.";
+    //   return;
+    // }
+
     this.loanService.saveLoan(this.loan).subscribe({
       next: () => {
         this.dialogRef.close();
       },
       error: (err) => {
-        // Si el backend devuelve un bad request (400) 
-        // o conflicto (409), pinto el mensaje de error aquí.
         this.errorMessage = "Error al guardar: " + (err.error?.message || "Comprueba la disponibilidad del juego y del cliente.");
       }
     });

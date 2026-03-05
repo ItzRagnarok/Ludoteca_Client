@@ -17,7 +17,7 @@ export class LoanService {
   private baseUrl = 'http://localhost:8080/loan';
 
   getLoans(pageable: Pageable): Observable<LoanPage> {
-    return of(LOANS_DATA);
+    return this.http.post<LoanPage>(this.baseUrl, { pageable: pageable });
   }
 
   saveLoan(loan: Loan): Observable<Loan> {
@@ -26,7 +26,11 @@ export class LoanService {
     return this.http.put<Loan>(url, loan);
   }
 
-  deleteLoan(idLoan: number): Observable<any> {
-    return of(null);
+  deleteLoan(idLoan: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${idLoan}`);
   }
+
+  getAllLoans(): Observable<Loan[]> {
+        return this.http.get<Loan[]>(this.baseUrl);
+    }
 }

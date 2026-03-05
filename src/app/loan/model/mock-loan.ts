@@ -9,15 +9,19 @@ export const LOANS_DATA: LoanPage = {
         id: 1,
         game: { id: 10, title: 'Catan' } as Game,
         client: { id: 100, name: 'Ana Pérez' } as Client,
-        loanDate: '2026-03-01T10:00:00Z', 
-        returnDate: '2026-03-10T12:30:00Z',
+        loanDate: '2026-03-01', 
+        returnDate: '2026-03-10',
+        // loanDate: '2026-03-01T10:00:00Z', 
+        // returnDate: '2026-03-10T12:30:00Z',
     },
     {
         id: 2,
         game: { id: 11, title: 'Azul' } as Game,
         client: { id: 101, name: 'Luis Gómez' } as Client,
-        loanDate: new Date('2026-03-02T09:15:00Z'), // Date
-        // sin returnDate → aún no devuelto
+        loanDate: new Date('2026-03-02'),
+        returnDate: new Date('2026-03-07')
+        // loanDate: new Date('2026-03-02T09:15:00Z'),
+        // returnDate: new Date('2026-03-07T09:15:00Z')
     },
 ],
     pageable: {

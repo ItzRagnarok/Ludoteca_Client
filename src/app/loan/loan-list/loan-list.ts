@@ -52,11 +52,13 @@ export class LoanList implements OnInit {
   // Combos
   games: Game[] = [];
   clients: Client[] = [];
+  loans: Loan[];
 
   // Filtros (template-driven)
   filterGame: Game | null = null;
   filterClient: Client | null = null;
   filterDate: Date | null = null;
+  filterTitle: string;
 
   // Últimos filtros aplicados (para mantenerlos al cambiar de página)
   private lastFilters: LoanFilters = { gameId: null, clientId: null, date: null };
@@ -121,6 +123,19 @@ export class LoanList implements OnInit {
     };
     this.loadPage();
   }
+
+  // onSearch(): void {
+  // this.pageNumber = 0; // resetea a primera página
+  //   const title = this.filterTitle;
+  //   const loanId =
+  //     this.filterGame != null ? this.filterGame.id : null;
+  //     this.filterClient != null ? this.filterClient.id : null;
+  //     this.filterDate != null ? this.filterDate.getDate : null;
+
+  //   this.loanService
+  //     .getLoans(title, loanId)
+  //     .subscribe((loan) => (this.loans = loan));
+  // }
 
   /** Botón Limpiar */
   onCleanFilter(): void {
