@@ -83,8 +83,15 @@ export class LoanEdit implements OnInit {
     //   this.errorMessage = "El juego ya esta reservado en esas fechas.";
     //   return;
     // }
+    // --- SOLUCIÓN ZONA HORARIA ---
+    // Clonamos el objeto para no romper la vista si falla el guardado
+    const loanToSave = Object.assign({}, this.loan);
 
-    this.loanService.saveLoan(this.loan).subscribe({
+    // Convertimos las fechas a string 'YYYY-MM-DD' puro
+    loanToSave.loanDate = this.formatDateOnly(start);
+    loanToSave.returnDate = this.formatDateOnly(end);
+
+    this.loanService.saveLoan(loanToSave).subscribe({
       next: () => {
         this.dialogRef.close();
       },
@@ -96,5 +103,13 @@ export class LoanEdit implements OnInit {
 
   onClose() {
     this.dialogRef.close();
+  }
+
+  /** Método auxiliar para extraer solo Año-Mes-Día en hora local */
+  private formatDateOnly(date: Date): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 }

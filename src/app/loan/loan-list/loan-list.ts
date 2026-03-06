@@ -104,7 +104,17 @@ export class LoanList implements OnInit {
       pageable.pageNumber = event.pageIndex;
     }
 
-    this.loanService.getLoans(pageable).subscribe((data) => {
+    // --- ESTO ES LO NUEVO ---
+    // Construimos el DTO juntando la paginación y los últimos filtros aplicados
+    const searchDto = {
+      pageable: pageable,
+      gameId: this.lastFilters.gameId,
+      clientId: this.lastFilters.clientId,
+      date: this.lastFilters.date
+    };
+
+    // Enviamos el DTO completo en lugar de solo el 'pageable'
+    this.loanService.getLoans(searchDto).subscribe((data) => {
       this.dataSource.data = data.content;
       this.pageNumber = data.pageable.pageNumber;
       this.pageSize = data.pageable.pageSize;
@@ -123,19 +133,6 @@ export class LoanList implements OnInit {
     };
     this.loadPage();
   }
-
-  // onSearch(): void {
-  // this.pageNumber = 0; // resetea a primera página
-  //   const title = this.filterTitle;
-  //   const loanId =
-  //     this.filterGame != null ? this.filterGame.id : null;
-  //     this.filterClient != null ? this.filterClient.id : null;
-  //     this.filterDate != null ? this.filterDate.getDate : null;
-
-  //   this.loanService
-  //     .getLoans(title, loanId)
-  //     .subscribe((loan) => (this.loans = loan));
-  // }
 
   /** Botón Limpiar */
   onCleanFilter(): void {

@@ -5,6 +5,7 @@ import { LOANS_DATA } from './model/mock-loan';
 import { Pageable } from '../core/model/page/Pageable';
 import { LoanPage } from './model/LoanPage';
 import { HttpClient } from '@angular/common/http';
+import { LoanSearchDto } from './model/LoanSearchDto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class LoanService {
 
   private baseUrl = 'http://localhost:8080/loan';
 
-  getLoans(pageable: Pageable): Observable<LoanPage> {
-    return this.http.post<LoanPage>(this.baseUrl, { pageable: pageable });
+  getLoans(searchDto: LoanSearchDto): Observable<LoanPage> {
+    return this.http.post<LoanPage>(this.baseUrl, searchDto);
   }
 
   saveLoan(loan: Loan): Observable<Loan> {
