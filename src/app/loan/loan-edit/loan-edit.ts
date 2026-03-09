@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,8 +35,8 @@ import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material
 })
 export class LoanEdit implements OnInit {
   loan: Loan;
-  clients: Client[] = []; // Array para el desplegable de clientes
-  games: Game[] = [];     // Array para el desplegable de juegos
+  clients: Client[] = []; 
+  games: Game[] = [];     
   errorMessage: string | null = null;
 
   constructor(
@@ -44,11 +44,11 @@ export class LoanEdit implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { loan: Loan },
     private clientService: ClientService,
     private gameService: GameService,
-    private loanService: LoanService
+    private loanService: LoanService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    // this.loan = this.data.loan ? Object.assign({}, this.data.loan) : new Loan();
     this.loan = this.data.loan ? Object.assign({}, this.data.loan) : new Loan();
 
     this.clientService.getClients().subscribe(clients => this.clients = clients);
@@ -79,12 +79,7 @@ export class LoanEdit implements OnInit {
       return;
     }
 
-    // if () {
-    //   this.errorMessage = "El juego ya esta reservado en esas fechas.";
-    //   return;
-    // }
-    // --- SOLUCIÓN ZONA HORARIA ---
-    // Clonamos el objeto para no romper la vista si falla el guardado
+    // Clono el objeto para no romper la vista si falla el guardado
     const loanToSave = Object.assign({}, this.loan);
 
     // Convertimos las fechas a string 'YYYY-MM-DD' puro
@@ -97,6 +92,7 @@ export class LoanEdit implements OnInit {
       },
       error: (err) => {
         this.errorMessage = "Error al guardar: " + (err.error?.message || "Comprueba la disponibilidad del juego y del cliente.");
+        this.cdr.detectChanges();
       }
     });
   }
@@ -105,7 +101,7 @@ export class LoanEdit implements OnInit {
     this.dialogRef.close();
   }
 
-  /** Método auxiliar para extraer solo Año-Mes-Día en hora local */
+  // Método auxiliar para extraer solo Año-Mes-Día en hora local 
   private formatDateOnly(date: Date): string {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');

@@ -6,7 +6,7 @@
     form {
         display: flex;
         flex-direction: column;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
 
     .buttons {
@@ -18,13 +18,13 @@
     }
 
     .error-alert {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-    font-size: 14px;
-    text-align: center;
-}
+        background-color: #f8d7da;
+        color: #721c24;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        border: 1px solid #f5c6cb;
+        border-radius: 4px;
+        font-size: 14px;
+        text-align: center;
+    }
 }

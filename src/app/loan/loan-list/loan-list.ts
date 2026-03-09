@@ -104,7 +104,6 @@ export class LoanList implements OnInit {
       pageable.pageNumber = event.pageIndex;
     }
 
-    // --- ESTO ES LO NUEVO ---
     // Construimos el DTO juntando la paginación y los últimos filtros aplicados
     const searchDto = {
       pageable: pageable,

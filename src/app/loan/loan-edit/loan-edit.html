@@ -46,13 +46,19 @@
             <mat-datepicker #pickerEnd></mat-datepicker>
             <mat-error>La fecha de fin no puede estar vacía</mat-error>
         </mat-form-field>
-    </form>
 
-    @if (errorMessage) {
+        @if (errorMessage) {
         <div class="error-alert">
             {{ errorMessage }}
         </div>
     }
+    </form>
+
+    <!-- @if (errorMessage) {
+        <div class="error-alert">
+            {{ errorMessage }}
+        </div>
+    } -->
 
     <div class="buttons">
         <button mat-stroked-button (click)="onClose()">Cerrar</button>

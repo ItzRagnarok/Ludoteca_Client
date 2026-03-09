@@ -20,6 +20,11 @@
             Ese nombre ya existe
         </mat-error>
 
+        @if (errorMessage) {
+        <div class="error-alert">
+            {{ errorMessage }}
+        </div>
+    }
     </form>
 
     <div class="buttons">

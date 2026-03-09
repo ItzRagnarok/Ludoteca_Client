@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,7 +26,8 @@ export class ClientEdit implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ClientEdit>,
     @Inject(MAT_DIALOG_DATA) public data: {client: Client}, 
-    private clientService: ClientService
+    private clientService: ClientService, 
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +42,14 @@ export class ClientEdit implements OnInit {
 
 
 onSave() {
+  this.errorMessage = null;
   this.clientService.saveClient(this.client).subscribe({
     next: () => this.dialogRef.close(),
     error: (err) => {
       if (err.status === 409) {
-        alert('El nombre ya existe');
+        // alert('El nombre ya existe');
+        this.errorMessage = "Este usuario ya existe";
+        this.cdr.detectChanges();
       }
     }
   });
